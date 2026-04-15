@@ -55,12 +55,6 @@ Illustrative chat snippets similar to **Microsoft Teams** IT channels. The autom
 
 ---
 
-**ET · Ethan** — *Just now*  
-New engineer starting tomorrow — can you get their full dev environment ready by 9am?  
-*1 reply*
-
----
-
 **User** — *Just now*  
 My 2FA authenticator got wiped when I reset my phone. Locked out of everything.  
 *1 reply*
