@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Users — Acme Admin{% endblock %}
+{% block page_heading %}Users{% endblock %}
+{% block page_subheading %}Search, review, and open accounts in your organization{% endblock %}
+{% block body %}
+<div class="card">
+  <div class="card-header">
+    <div>
+      <h2>Directory</h2>
+      <p>
+        {% if q %}
+          {% if users|length %}
+            {{ users|length }} match{% if users|length != 1 %}es{% endif %} for “{{ q }}”
+          {% else %}
+            No matches for “{{ q }}”
+          {% endif %}
+        {% else %}
+          {{ users|length }} user{% if users|length != 1 %}s{% endif %} in this workspace
+        {% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('main.create_user') }}" class="btn btn-primary">Create User</a>
+  </div>
+  <div class="card-pad" style="padding-top: 0;">
+    <form method="get" action="{{ url_for('main.dashboard') }}" class="search-row" style="padding: 1.25rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: 0;">
+      <div class="field-grow">
+        <label for="search_q">Search by email</label>
+        <input id="search_q" name="q" type="search" placeholder="e.g. john@company.com" value="{{ q or '' }}" autocomplete="off">
+      </div>
+      <div>
+        <label class="hint" style="visibility:hidden;">Go</label>
+        <button type="submit" class="btn btn-secondary">Search</button>
+      </div>
+    </form>
+    {% if users %}
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td>
+              <a href="{{ url_for('main.user_detail', user_id=u.id) }}" class="link-row">{{ u.email }}</a>
+            </td>
+            <td>{{ u.name }}</td>
+            <td>
+              {% if u.role == 'admin' %}
+              <span class="badge badge-admin">admin</span>
+              {% elif u.role == 'contractor' %}
+              <span class="badge badge-contractor">contractor</span>
+              {% else %}
+              <span class="badge badge-user">user</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% elif q %}
+    <div class="empty-state">
+      <div class="empty-state-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+      </div>
+      <h3>No matches</h3>
+      <p>No users match “{{ q }}”. Try another email or clear the search.</p>
+      <p style="margin-top:1.25rem;">
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Clear search</a>
+        <a href="{{ url_for('main.create_user') }}" class="btn btn-primary" style="margin-left:0.5rem;">Create User</a>
+      </p>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+      </div>
+      <h3>No users yet</h3>
+      <p>Create your first user to see them listed here. Your automation agent uses the same flow.</p>
+      <p style="margin-top:1.25rem;">
+        <a href="{{ url_for('main.create_user') }}" class="btn btn-primary">Create User</a>
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

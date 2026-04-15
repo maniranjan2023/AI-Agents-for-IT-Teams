@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Create user — Acme Admin{% endblock %}
+{% block page_heading %}Create user{% endblock %}
+{% block page_subheading %}Provision a new account — password is optional{% endblock %}
+{% block body %}
+<div class="card">
+  <div class="card-header">
+    <div>
+      <h2>New user</h2>
+      <p>Required fields: work email and display name</p>
+    </div>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-ghost">Cancel</a>
+  </div>
+  <div class="card-pad">
+    <form method="post" action="{{ url_for('main.create_user') }}" data-loading>
+      <div class="form-grid cols-2">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="off" placeholder="name@company.com">
+        </div>
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="off" placeholder="Jordan Lee">
+        </div>
+        <div>
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option value="user">user</option>
+            <option value="admin">admin</option>
+            <option value="contractor">contractor</option>
+          </select>
+          <p class="hint">Controls access templates in this demo</p>
+        </div>
+        <div>
+          <label for="password">Password (optional — random if empty)</label>
+          <input id="password" name="password" type="text" autocomplete="off" placeholder="Leave blank to auto-generate">
+        </div>
+      </div>
+      <div class="actions-row" style="margin-top: 1.25rem; padding-top: 0; border: none;">
+        <button type="submit" class="btn btn-primary">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="btn-label">Create user</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

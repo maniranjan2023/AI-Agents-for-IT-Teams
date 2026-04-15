@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ user.email }} — Acme Admin{% endblock %}
+{% block page_heading %}User profile{% endblock %}
+{% block page_subheading %}Account details and credential actions{% endblock %}
+{% block body %}
+<div class="card card-pad">
+  <div class="profile-hero">
+    <div class="avatar" aria-hidden="true">{{ (user.name[:1] or user.email[:1])|upper }}</div>
+    <div>
+      <h2 style="margin:0;">{{ user.name }}</h2>
+      <p class="email">{{ user.email }}</p>
+      <p style="margin:0.5rem 0 0;">
+        {% if user.role == 'admin' %}
+        <span class="badge badge-admin">admin</span>
+        {% elif user.role == 'contractor' %}
+        <span class="badge badge-contractor">contractor</span>
+        {% else %}
+        <span class="badge badge-user">user</span>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <dl class="dl-grid">
+    <div class="dl-item">
+      <dt>Email</dt>
+      <dd>{{ user.email }}</dd>
+    </div>
+    <div class="dl-item">
+      <dt>Display name</dt>
+      <dd>{{ user.name }}</dd>
+    </div>
+    <div class="dl-item">
+      <dt>Role</dt>
+      <dd>{{ user.role }}</dd>
+    </div>
+    <div class="dl-item">
+      <dt>Password (demo)</dt>
+      <dd style="font-family: ui-monospace, monospace; font-size: 13px;">{{ user.password }}</dd>
+    </div>
+  </dl>
+
+  <div class="actions-row">
+    <form method="post" action="{{ url_for('main.reset_password', user_id=user.id) }}" data-loading
+          onsubmit="return confirm('Generate a new random password for this user?');">
+      <button type="submit" class="btn btn-danger">
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="btn-label">Reset password</span>
+      </button>
+    </form>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Back to dashboard</a>
+  </div>
+</div>
+{% endblock %}
