@@ -49,6 +49,46 @@ flowchart TD
 - Reset password: `python -m agent "Reset password for jane@company.com"`
 - Optional flags: `--open-live` (open live browser view), `--recording` (session video when Cloud provides URLs)
 
+### Example: IT Support threads (Teams-style)
+
+Illustrative chat snippets similar to **Microsoft Teams** IT channels. The automated responder is labeled **Agent** (an app/bot posting ticket updates).
+
+---
+
+**ET · Ethan** — *Just now*  
+New engineer starting tomorrow — can you get their full dev environment ready by 9am?  
+*1 reply*
+
+---
+
+**User** — *Just now*  
+My 2FA authenticator got wiped when I reset my phone. Locked out of everything.  
+*1 reply*
+
+**Agent · APP** — *Just now*  
+Identity verified. 2FA reset and new backup codes sent to your recovery email. Re-enroll your authenticator app when ready — you're back in.  
+*Ticket resolved*
+
+---
+
+**User** — *Just now*  
+My laptop keeps freezing during Zoom calls. It's happened 3 times today.  
+*1 reply*
+
+**Agent · APP** — *Just now*  
+Done! A Figma Professional seat has been provisioned to sofia@company.com. Check your inbox for the activation link.  
+*Ticket resolved*
+
+---
+
+**User** — *Just now*  
+We’re running out of space on the marketing shared drive — can we expand it?  
+*1 reply*
+
+**Agent · APP** — *Just now*  
+Storage expanded from 500GB to 1TB for the marketing shared drive. Current usage is now at 48%. Let me know if you need a usage report.  
+*Ticket resolved*
+
 ---
 
 ## High-level design (HLD)
